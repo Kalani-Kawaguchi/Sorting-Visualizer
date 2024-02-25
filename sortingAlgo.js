@@ -1,7 +1,7 @@
 const max = 100;
 const min = 1;
-const n = 100;
-const speed = 5;
+const n = 50;
+const speed = 30;
 const arr = [];
 
 let audioCtx = null;
@@ -14,8 +14,18 @@ function playNote(freq){
     const osc = audioCtx.createOscillator();
     osc.frequency.value = freq;
     osc.start();
-    osc.stop(audioCtx.currentTimer + dur);
-    osc.connect(audioCtx.destination);
+    osc.stop(audioCtx.currentTime + dur);
+    const node = audioCtx.createGain();
+    node.gain.value = 0.1;
+    node.gain.linearRampToValueAtTime(0, audioCtx.currentTime+dur);
+    osc.connect(node);
+    node.connect(audioCtx.destination);
+}
+
+function playArray(arr){
+    for(let i = 0; i < arr.length; i++){
+        console.log(arr[i]);
+    }
 }
 
 function init(){
@@ -42,6 +52,8 @@ function animate(moves){
         [arr[i],arr[j]] = [arr[j],arr[i]];
     }
     showBars(move);
+    playNote(300+arr[i]*7);
+    playNote(300+arr[j]*7);
     setTimeout(function(){
         animate(moves);
     }, speed);
@@ -52,12 +64,13 @@ function bubbleSortHelper(arr){
     do{
         var swapped = false;
         for(let i = 1; i < arr.length; i++){
-            moves.push({indices: [i-1, i], type:"comp"});
+            //moves.push({indices: [i-1, i], type:"comp"});
             if(arr[i - 1] > arr[i]){
                 moves.push({indices: [i-1, i], type:"swap"});
                 [arr[i-1], arr[i]] = [arr[i], arr[i-1]];
                 swapped = true;
             }
+            
         }
     }while(swapped);
     return moves;
@@ -72,6 +85,7 @@ function showBars(move){
         // document.getElementById("array-container").insertAdjacentHTML("beforeend",`<div class="array-bar" style="height: ${arr[i]/max * 80}%"></div>`);
         if(move && move.indices.includes(i)){
             bar.style.backgroundColor = move.type=="swap" ? "red" : "orange";
+            // playNote(arr[i]);
         }
         document.getElementById("array-container").appendChild(bar);
     }
