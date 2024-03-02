@@ -1,6 +1,7 @@
 # Sorting Visualizer
 *An HTML/JS site that visualizes different sorting algorithms*<br>
 *This visualizer was inspired by [Radu's Visualizer with Sound](https://www.youtube.com/watch?v=_AwSlHlpFuc)*<br>
+*Click [here](https://kalani-kawaguchi.github.io/Sorting-Visualizer/) for the deployed site of the project*<br>
 <br>
 Currently only bubble sort is implemented.<br>
 <br>
