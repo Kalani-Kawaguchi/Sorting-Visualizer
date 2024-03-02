@@ -1,7 +1,7 @@
 const max = 100;
 const min = 1;
-const n = 50;
-const speed = 30;
+const n = 1000;
+const speed = 10;
 const arr = [];
 
 let audioCtx = null;
