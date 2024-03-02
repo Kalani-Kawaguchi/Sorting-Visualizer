@@ -1,6 +1,6 @@
 const max = 100;
 const min = 1;
-const n = 1000;
+const n = 100;
 const speed = 10;
 const arr = [];
 
